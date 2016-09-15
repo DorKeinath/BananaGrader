@@ -10,7 +10,7 @@
 ## Installation
 The code you find here on GitHub isn't compiled and still under construction, therefore you can [install Kivy](https://kivy.org/docs/installation/installation.html#stable-version) to run it. It's not running with the Kivy Launcher because it doesn't support the used csv module.
 
-Before running the app (with *sudo python main.py*) you  have to copy the data in the `data_of_user-data-dir`  to your [user data directory](https://kivy.org/docs/api-kivy.app.html?highlight=user_data_dir#kivy.app.App.user_data_dir).
+Before running the app (with *sudo python main.py*) you  have to copy the data in *data_of_user-data-dir*  to your [user data directory](https://kivy.org/docs/api-kivy.app.html?highlight=user_data_dir#kivy.app.App.user_data_dir).
 
 To import your students you can change the file named *students.csv*.
 
@@ -29,7 +29,7 @@ Functions to implement:
 * Export grades to csv (they are stored in grads.json)
 * Give bananas for given grades
 * Copy default files to user data directory
-* Handle incorrect files
+* Handle incorrect files (students.csv)
 * Write more in "About"
 * Nicer symbols (left arrow) 
 
