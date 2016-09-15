@@ -5,10 +5,8 @@ App for giving grades and earning bananas.
 
 ## Screenshots
 [<img src="/screenshots/Banana_Grader_1_Home.png" width="200">](screenshots/Banana_Grader_1_Home.png) 
-
-[<img src="/screenshots/Banana_Grader_2_Give_grades" width="200">](screenshots/Banana_Grader_2_Give_grades.png) 
-
-[<img src="/screenshots/Banana_3_Learn_names" width="200">](screenshots/Banana_Grader_3_Learn_names.png) 
+[<img src="/screenshots/Banana_Grader_2_Give_grades.png" width="200">](screenshots/Banana_Grader_2_Give_grades.png) 
+[<img src="/screenshots/Banana_3_Learn_names.png" width="200">](screenshots/Banana_Grader_3_Learn_names.png) 
 
 ## Installation
 The code you find here on GitHub isn't compiled and still under construction, therefore you can [install Kivy](https://kivy.org/docs/installation/installation.html#stable-version) to run it. It's not running with the Kivy Launcher because it doesn't support the used csv module.
