@@ -1,4 +1,4 @@
-# [<img src="/app/icon.png" width="50">](app/icon.png)  Banana Grader
+# Banana Grader
 
  App for giving grades and earning bananas.
 
