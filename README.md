@@ -26,10 +26,10 @@ So the Banana Grader can be used for two reasons:
 
 Functions to implement:
 
-* Export grades to csv (they are stored in grads.json)
+* Export grades to csv (they are stored in *grades.json*)
 * Give bananas for given grades
 * Copy default files to user data directory
-* Handle incorrect files (students.csv)
+* Handle incorrect files (*students.csv*)
 * Write more in "About"
 * Nicer symbols (left arrow) 
 
