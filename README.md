@@ -1,7 +1,5 @@
 # Banana Grader
-App for giving grades and earning bananas.
-
-[<img src="/app/icon.png" width="50">](app/icon.png)
+[<img src="/app/icon.png" width="50">](app/icon.png) App for giving grades and earning bananas.
 
 ## Screenshots
 [<img src="/screenshots/Banana_Grader_1_Home.png" width="200">](screenshots/Banana_Grader_1_Home.png)
