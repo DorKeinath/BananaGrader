@@ -1,0 +1,633 @@
+#:kivy 1.7.1
+#:import ListAdapter kivy.adapters.listadapter.ListAdapter
+#:import Factory kivy.factory.Factory
+
+<Screen>:
+    canvas:
+        Color:
+            rgb: .2, .2, .2
+        Rectangle:
+            size: self.size
+
+<FlatButton@Button>:
+#     font_name: 'Roboto'
+    background_normal: 'button_d.png'
+#     background_down: 'button_down.png'
+#     bold: True
+#     border: (2,2,2,2)
+<Label>:
+#    font_name: 'Roboto'
+    font_size: '18sp'
+
+############################################################################
+##
+## Show all students of a class/group to learn their names (Screen template)
+##
+############################################################################
+<StudentView>:
+
+    BoxLayout:
+
+        orientation: 'vertical'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+            padding: '5dp'
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FlatButton:
+                text: '<'
+                size_hint_x: None
+                width: '100dp'
+                on_release: app.go_home()
+
+            Label:
+                text: root.group_klasse
+                size_hint: 0.3, 1
+
+            Label:
+                text: ''
+                size_hint_x: None
+                width: '148dp'
+
+        Label:
+            text:''
+            size_hint_y: 0.05
+
+        Image:
+            source: app.user_data_dir + '/pictures/' + root.student_pic
+            mipmap: True
+
+        FlatButton:
+            id: student_name
+            text: 'Who is this?'
+            size_hint_y: 0.15
+            on_release: self.text = root.student_vorname + ' ' + root.student_nachname
+
+        Button:
+            text: '>'
+            size_hint_y: 0.15
+            on_release: app.go_next_student()
+
+
+##################################################################
+##
+## Show Details of your class/group (Screen template)
+##
+##################################################################
+<GroupDetails>:
+    BoxLayout:
+
+        orientation: 'vertical'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+            padding: '5dp'
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FlatButton:
+                text: '<'
+                size_hint_x: 0.2
+                on_release: app.go_home()
+
+            Label:
+                text: root.group_klasse
+                size_hint: 0.8, 1
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+
+        Button:
+            text: "Show students"
+            on_release: app.start_student_show(root.group_klasse)
+
+        Label:
+            text: "Notenschema: " + root.group_notenschema
+
+
+<BoxLayoutTop@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: '55sp'
+    spacing: '20sp'
+    padding: '10sp'
+
+##################################################################
+##
+## Home-Screen with existing classes/groups
+##
+##################################################################
+<Home>:
+
+    BoxLayout:
+
+        orientation: 'vertical'
+
+        BoxLayoutTop:
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            # Button:
+            #     text: 'Test-Screen'
+            #     size_hint_x: None
+            #     width: '100dp'
+            #     on_release: root.manager.current = 'groups'
+
+            Image:
+                source: 'icon.png'
+                mipmap: True
+                size_hint_x: None
+                height: '45sp'
+                width: '45sp'
+
+            Label:
+                text: 'Banana Grader'
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+
+            FlatButton:
+                text: 'About'
+                size_hint_x: None
+                width: '70sp'
+                font_size: '16sp'
+                # on_release: root.manager.current = 'about'
+                on_release: app.export_to_csv()
+
+        ListView:
+            adapter: ListAdapter(data=root.data, cls=Factory.GroupListItem, args_converter=root.args_converter)
+
+        Button:
+            text: "Show all grades"
+            size_hint_y: None
+            height: '55sp'
+            on_release: root.manager.current = 'notes'
+
+<GroupListItem>:
+
+    height: '78sp'
+    size_hint_y: None
+
+    canvas:
+        Color:
+            rgb: .3, .3, .3
+        Rectangle:
+            pos: self.pos
+            size: self.width, 1
+
+    BoxLayout:
+        padding: '5dp'
+
+        FlatButton:
+            text: root.klasse
+            on_release: app.go_groupdetails(root.group_index, root.klasse, root.notenschema)
+
+        FlatButton:
+            text: '+'
+            on_release: app.add_note(root.klasse)
+
+##################################################################
+##
+## Show all stored grades
+##
+##################################################################
+<Notes>:
+
+    BoxLayout:
+
+        orientation: 'vertical'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+            padding: '5dp'
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FlatButton:
+                text: '<'
+                size_hint_x: 0.2
+                on_release: app.go_home()
+
+            Label:
+                text: 'Stored grades'
+                size_hint: 0.8, 1
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+
+        ListView:
+            adapter: ListAdapter(data=root.data, cls=Factory.NoteListItem, args_converter=root.args_converter)
+
+<NoteListItem>:
+
+    height: '48sp'
+    size_hint_y: None
+
+    canvas:
+        Color:
+            rgb: .3, .3, .3
+        Rectangle:
+            pos: self.pos
+            size: self.width, 1
+
+    BoxLayout:
+
+        padding: '5dp'
+
+        Label:
+            text: root.note_title + ' - ' + root.note_klasse + ' - ' + root.note_vorname + ' - ' + root.note_bewertung
+
+        FlatButton:
+            text: '>'
+            size_hint_x: 0.2
+            # width: self.height
+            on_release: app.edit_note(root.note_index)
+
+##################################################################
+##
+## Add and show a grade of a student (Screen template)
+##
+##################################################################
+<NoteView>:
+
+    on_note_content: app.set_note_content(self.note_index, self.note_content)
+    on_note_title: app.set_note_title(self.note_index, self.note_title)
+    on_note_bewertung: app.set_note_bewertung(self.note_index, self.note_bewertung)
+
+    BoxLayout:
+
+        orientation: 'vertical'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+            padding: '5dp'
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FlatButton:
+                text: '<'
+                size_hint_x: None
+                width: self.height
+                on_release: app.go_home()
+
+            MutableLabelTextInput:
+                text: root.note_title
+                multiline: False
+                on_text: root.note_title = self.text
+
+            FlatButton:
+                text: '-'
+                size_hint_x: None
+                width: self.height
+                on_release: app.del_note(root.note_index)
+
+            FlatButton:
+                text: '>'
+                on_release: root.note_bewertung = 'n.v.'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '250dp'
+            padding: '5dp'
+
+            Image:
+                source: app.user_data_dir + '/pictures/' + root.note_pic
+                mipmap: True
+                size_hint_x: 0.5
+                width: self.height + 100
+
+            BoxLayout:
+
+                orientation: 'vertical'
+                size_hint_x: 0.5
+
+                Label:
+                    #text: root.note_klasse
+                    text: ''
+                    size_hint: 1, 0.3
+
+                Label:
+                    id: nameLabel
+                    text: root.note_vorname + '\n' + root.note_nachname
+                    size_hint: 1, 0.3
+
+                Label:
+                    id: noteLabel
+                    text: root.note_bewertung
+                    size_hint: 1, 0.3
+
+        ##################################################################
+        ##
+        ## Grades to give (Notenschema)
+        ## TODO: Unterscheiden
+        ##
+        ##################################################################
+        GridLayout:
+
+            size: root.size
+            cols: 4
+            spacing: '10dp'
+            padding: '10dp'
+
+            Button:
+                #size_hint_y: None
+                id: button
+                height: '28dp'
+                text: '15'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '14'
+                group: 'g1'
+                state: 'normal'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                id: button13
+                height: '48dp'
+                text: '13'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '12'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '11'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '10'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '9'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '8'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '7'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '6'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '5'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '4'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '3'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '2'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '1'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+            ToggleButton:
+                #size_hint_y: None
+                height: '48dp'
+                text: '0'
+                group: 'g1'
+                on_release: root.note_bewertung = self.text
+
+
+##################################################################
+##
+## For the title?
+##
+##################################################################
+<MutableLabelTextInput@MutableTextInput>:
+    Label:
+        id: w_label
+        pos: root.pos
+        text: root.text
+
+    TextInput:
+        id: w_textinput
+        pos: root.pos
+        text: root.text
+        multiline: root.multiline
+        on_focus: root.check_focus_and_view(self)
+
+<MutableRstDocumentTextInput@MutableTextInput>:
+    RstDocument:
+        id: w_label
+        pos: root.pos
+        text: root.text
+
+    TextInput:
+        id: w_textinput
+        pos: root.pos
+        text: root.text
+        multiline: root.multiline
+        on_focus: root.check_focus_and_view(self)
+
+##################################################################
+##
+## Test-Screen
+##
+##################################################################
+<Groups>:
+
+    test_button: test_button
+    groups_list: list_of_groups
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+
+            Spinner:
+                text: 'Menu'
+                values: ('Export', 'Template', 'About')
+                size_hint: None, None
+                height: '48dp'
+                width: '130dp'
+
+            Label:
+                text: 'Test-Screen'
+
+        GridLayout:
+
+            cols: 3
+
+            Button:
+                text: "Home"
+                on_release: root.manager.current = 'home'
+            Button:
+                text: "GroupDetails"
+                on_release: root.manager.current = 'groupdetails'
+            Button:
+                text: "Notes"
+                on_release: root.manager.current = 'notes'
+            Button:
+                text: "About"
+                # on_release: root.manager.current = 'about'
+            Button:
+                text: ""
+            Button:
+                text: "Zeig die Gruppen"
+                on_release: root.zeig_die_gruppen()
+            Button:
+                text: ""
+            Button:
+                text: ""
+            Button:
+                text: 'Zeig was'
+                on_release: root.zeig_was()
+            Button:
+                text: ""
+            Button:
+                id: test_button
+                text: ""
+
+        ListView:
+            id: list_of_groups
+            #adapter: ListAdapter(data=root.klassen, cls=Factory.GroupsListItem, args_converter=root.args_converter)
+            item_strings: ['a','b']
+            #item_strings: app.vorhandenegruppen
+            #adapter: ListAdapter(data=[], cls=ListItemButton)
+            adapter: ListAdapter(data=root.data, cls=Factory.GroupListItem, args_converter=root.args_converter)
+
+
+##################################################################
+##
+## About the BananaGrader
+##
+##################################################################
+<About>:
+
+    BoxLayout:
+
+        orientation: 'vertical'
+
+        BoxLayout:
+
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '48dp'
+            padding: '5dp'
+
+            canvas:
+                Color:
+                    rgb: .3, .3, .3
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            FlatButton:
+                text: '<'
+                size_hint_x: 0.2
+                on_release: app.go_home()
+
+            Label:
+                text: 'About'
+                size_hint: 0.8, 1
+                text_size: self.size
+                halign: 'left'
+                valign: 'middle'
+
+        Label:
+            text: "Banana Grader"
+
+        Label:
+            text: "Read all information on \nhttps://github.com/DorKeinath/BananaGrader"
