@@ -5,36 +5,44 @@
 ## Screenshots
 [<img src="/screenshots/Banana_Grader_1_Home.png" width="200">](screenshots/Banana_Grader_1_Home.png)
 [<img src="/screenshots/Banana_Grader_2_Give_grades.png" width="200">](screenshots/Banana_Grader_2_Give_grades.png)
-[<img src="/screenshots/Banana_Grader_3_Learn_names.png" width="200">](screenshots/Banana_Grader_3_Learn_names.png) 
+[<img src="/screenshots/Banana_Grader_3_Learn_names.png" width="200">](screenshots/Banana_Grader_3_Learn_names.png)
 
 ## Installation
-The code you find here on GitHub isn't compiled and still under construction, therefore you can [install Kivy](https://kivy.org/docs/installation/installation.html#stable-version) to run it. It's not running with the Kivy Launcher because it doesn't support the used csv module.
+* To use it with your android, you can install the *Kivy Launcher* ([apk](https://kivy.org/#download) ,[Google Play](https://play.google.com/store/apps/details?id=org.kivy.pygame).
+* To use it on an other device look [here](https://kivy.org/#download)
 
-Before running the app (with *sudo python main.py*) you  have to copy the data in *data_of_user-data-dir*  to your [user data directory](https://kivy.org/docs/api-kivy.app.html?highlight=user_data_dir#kivy.app.App.user_data_dir).
+## Use
 
-To import your students you can change the file named *students.csv*.
+To import your **students** you can change the file named *students.csv*. Afterwards use
 
-To get your grades you can take the file named *grades.json* and [convert](http://www.convertcsv.com/json-to-csv.htm) it to csv.
+```python
+python convert_students_to_json.py
+```
+to convert your csv to the necessary json file.
+
+To get your **grades** use
+
+```python
+python convert_grades_to_csv.py
+```
+to convert your *grades.json* to a csv file.
 
 ## Concept
 
-The idea behind the app is to realize a quick workflow: Students and given grades are managed on a personal computer via two **csv* files. The Banana Grader imports the students.csv and stores given grades into grades.csv. 
-So the Banana Grader can be used for two reasons: 
+The idea behind the app is to realize a quick workflow: Students and given grades are managed on a personal computer via two csv files. So the Banana Grader can be used for two reasons:
 
 1. To give grades to students
 2. To learn the names of the students
 
 Functions to implement:
 
-* Reverse order of given grades
-* Exportfunction for grades to csv (they are stored in *grades.json*)
-* Increase velocity in creating dics
-* Copy default files to user data directory
 * Give bananas for given grades
+* Reverse order of given grades
+* Increase velocity in creating dics
 * Handle incorrect files (*students.csv*)
 * Security stuff
 * Write more in "About"
-* Nicer symbols (left arrow) 
+* Nicer symbols (left arrow)
 
 ##  Licenses
 

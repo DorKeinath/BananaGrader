@@ -1,0 +1,3 @@
+title=BananaGrader - Entwickler-Version
+author=Ephraim Keinath
+orientation=portrait
