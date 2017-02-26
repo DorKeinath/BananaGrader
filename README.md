@@ -8,7 +8,7 @@
 [<img src="/screenshots/Banana_Grader_3_Learn_names.png" width="200">](screenshots/Banana_Grader_3_Learn_names.png)
 
 ## Installation
-* To use it with your android, you can install the *Kivy Launcher* ([apk](https://kivy.org/#download) ,[Google Play](https://play.google.com/store/apps/details?id=org.kivy.pygame).
+* To use it with your android, you can install the *Kivy Launcher* ([apk](https://kivy.org/#download), [Google Play](https://play.google.com/store/apps/details?id=org.kivy.pygame)).
 * To use it on an other device look [here](https://kivy.org/#download)
 
 ## Use
